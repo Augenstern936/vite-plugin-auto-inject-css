@@ -1,0 +1,61 @@
+{
+  "name": "vite-plugin-auto-inject-css",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "cz": "git add . && czg",
+    "build": "tsup",
+    "changelog": "npx nx release changelog",
+    "dry-run": "npx nx release --dry-run --first-release --verbose",
+    "gen:tag": "npx nx release version --git-tag",
+    "push:tags": "git push origin --tags",
+    "first:publish": "npx nx release publish --first-release && pnpm push:tags",
+    "only:publish": "npx nx release publish && pnpm push:tags",
+    "release": "npx nx release && pnpm push:tags"
+  },
+  "keywords": [
+    "plugin",
+    "vite",
+    "css",
+    "style",
+    "inject",
+    "auto"
+  ],
+  "author": "",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "homepage": "git@github.com:Augenstern936/vite-plugin-auto-inject-css.git",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Augenstern936/vite-plugin-auto-inject-css.git"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.4.1",
+    "@commitlint/config-conventional": "^19.4.1",
+    "cz-git": "^1.9.4",
+    "czg": "^1.9.4",
+    "eslint": "^9.9.1",
+    "lint-staged": "^15.2.10",
+    "nx": "19.6.5",
+    "prettier": "^3.3.3",
+    "simple-git-hooks": "^2.11.1",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged --concurrent false"
+  },
+  "lint-staged": {
+    "*.{vue,js,ts,jsx,tsx,md,json}": "eslint --cache --fix"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  }
+}
