@@ -9,7 +9,16 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   nodePlugin.configs['flat/recommended'],
   regexpPlugin.configs['flat/recommended'],
-  { ignores: ['**/dist', '**/playground-temp', '**/temp'] },
+  {
+    ignores: [
+      '**/dist',
+      '**/playground-temp',
+      '**/temp',
+      '**/es',
+      '**/lib',
+      '**/dist',
+    ],
+  },
   {
     plugins: {
       import: importPlugin,

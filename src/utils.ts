@@ -1,9 +1,9 @@
 /*
  * @Description:
  * @Date: 2024-09-05 16:09:04
- * @LastEditTime: 2024-09-06 11:23:42
+ * @LastEditTime: 2024-09-06 18:20:43
  */
-
+import * as ElementPlus from 'element-plus'
 import type { ResolverName } from './typing'
 
 /**
@@ -21,20 +21,7 @@ export const formatComponentName = (v: string): string =>
  * @returns
  */
 export const getAppendCode = (format: 'es' | 'cjs', path: string): string => {
-  return format === 'es' ? `import ${path};\n` : `require(${path});\n`
-}
-
-/**
- * 获取当前组件路径
- * @param ResolverName
- * @param name
- * @returns
- */
-export const getCurrComponentStylePath = (
-  libName: ResolverName,
-  name: string,
-): string => {
-  return `"${libName}/theme-chalk/${name}.css"`
+  return format === 'es' ? `import "${path}";\n` : `require("${path}");\n`
 }
 
 /**
@@ -44,11 +31,10 @@ export const getCurrComponentStylePath = (
  * @returns
  */
 export const getImportComponents = (
-  chunk: Record<string, any>,
   libName: ResolverName,
+  chunk: Record<string, any>,
 ): string[] => {
   const el = chunk?.importedBindings?.[libName] ?? []
-  const ElementPlus = [] as any[]
   const libComponents = Object.keys(ElementPlus).filter((key) =>
     key.includes('El'),
   )

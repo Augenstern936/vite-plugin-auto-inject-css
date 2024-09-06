@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "vite-plugin-auto-inject-css",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "module": "dist/index.ts",
   "types": "dist/index.d.ts",
   "packageManager": "pnpm@8.10.2",
   "scripts": {
@@ -12,9 +12,7 @@
     "format": "prettier --write --cache .",
     "lint": "eslint --cache .",
     "postinstall": "simple-git-hooks",
-    "changelog": "npx nx release changelog",
     "dry-run": "npx nx release --dry-run --first-release --verbose",
-    "gen:tag": "npx nx release version --git-tag",
     "push:tags": "git push origin --tags",
     "first:publish": "npx nx release publish --first-release && pnpm push:tags",
     "only:publish": "npx nx release publish && pnpm push:tags",
@@ -28,7 +26,7 @@
     "inject",
     "auto"
   ],
-  "author": "",
+  "author": "<haidu 1720581634@qq.com>",
   "license": "MIT",
   "files": [
     "dist"
@@ -44,6 +42,7 @@
     "@eslint/js": "^9.9.1",
     "cz-git": "^1.9.4",
     "czg": "^1.9.4",
+    "element-plus": "^2.8.1",
     "eslint": "^9.9.1",
     "eslint-plugin-import-x": "^4.2.1",
     "eslint-plugin-n": "^17.10.2",
