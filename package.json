@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "packageManager": "pnpm@8.10.2",
   "scripts": {
     "cz": "git add . && czg",
     "build": "tsup",
@@ -40,12 +41,16 @@
     "cz-git": "^1.9.4",
     "czg": "^1.9.4",
     "eslint": "^9.9.1",
+    "eslint-plugin-import-x": "^4.2.1",
+    "eslint-plugin-n": "^17.10.2",
+    "eslint-plugin-regexp": "^2.6.0",
     "lint-staged": "^15.2.10",
     "nx": "19.6.5",
     "prettier": "^3.3.3",
     "simple-git-hooks": "^2.11.1",
     "tsup": "^8.2.4",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.4.0"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec lint-staged --concurrent false"
