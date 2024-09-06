@@ -60,11 +60,6 @@ export default tseslint.config(
         'error',
         { prefer: 'type-imports' },
       ],
-
-      // 'import/no-nodejs-modules': [
-      //   'error',
-      //   { allow: builtinModules.map((mod) => `node:${mod}`) },
-      // ],
       'import/no-duplicates': 'error',
       'import/order': 'error',
       'sort-imports': [
