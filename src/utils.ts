@@ -1,17 +1,17 @@
 /*
  * @Description:
  * @Date: 2024-09-05 16:09:04
- * @LastEditTime: 2024-09-06 09:36:27
+ * @LastEditTime: 2024-09-06 11:11:00
  */
 
-import { ResolverName } from './typing'
+import type { ResolverName } from './typing'
 
 /**
  * 大驼峰转短横线格式
  * @param v
  * @returns
  */
-export const formatComponentName = (v: string) =>
+export const formatComponentName = (v: string): string =>
   v.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 
 /**
@@ -20,7 +20,7 @@ export const formatComponentName = (v: string) =>
  * @param path
  * @returns
  */
-export const getAppendCode = (format: 'es' | 'cjs', path: string) => {
+export const getAppendCode = (format: 'es' | 'cjs', path: string): string => {
   return format === 'es' ? `import ${path};\n` : `require(${path});\n`
 }
 
@@ -33,7 +33,7 @@ export const getAppendCode = (format: 'es' | 'cjs', path: string) => {
 export const getCurrComponentStylePath = (
   libName: ResolverName,
   name: string,
-) => {
+): string => {
   return `"${libName}/theme-chalk/${name}.css"`
 }
 
@@ -46,8 +46,8 @@ export const getCurrComponentStylePath = (
 export const getImportComponents = (
   chunk: Record<string, any>,
   libName: ResolverName,
-) => {
-  var el = chunk?.importedBindings?.[libName] ?? []
+): string[] => {
+  const el = chunk?.importedBindings?.[libName] ?? []
   const ElementPlus = [] as any[]
   const libComponents = Object.keys(ElementPlus).filter((key) =>
     key.includes('El'),

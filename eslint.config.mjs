@@ -1,9 +1,7 @@
-// @ts-check
 import eslint from '@eslint/js'
 import importPlugin from 'eslint-plugin-import-x'
 import nodePlugin from 'eslint-plugin-n'
 import * as regexpPlugin from 'eslint-plugin-regexp'
-import { builtinModules } from 'node:module'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
@@ -26,8 +24,8 @@ export default tseslint.config(
       'n/no-missing-import': [
         'error',
         {
-          allowModules: ['types', 'estree', 'less', 'sass', 'stylus'],
-          tryExtensions: ['.ts', '.js', '.jsx', '.tsx', '.d.ts'],
+          allowModules: ['types', 'estree', 'stylus'],
+          tryExtensions: ['.ts', '.js', '.d.ts'],
         },
       ],
       'n/no-missing-require': [
@@ -35,14 +33,10 @@ export default tseslint.config(
         {
           // for try-catching yarn pnp
           allowModules: ['pnpapi', 'vite'],
-          tryExtensions: ['.ts', '.js', '.jsx', '.tsx', '.d.ts'],
+          tryExtensions: ['.ts', '.js', '.d.ts'],
         },
       ],
-      'n/no-extraneous-import': [
-        'error',
-        { allowModules: ['vite', 'less', 'sass', 'vitest', 'unbuild'] },
-      ],
-      'n/no-extraneous-require': ['error', { allowModules: ['vite'] }],
+      'n/no-extraneous-import': ['error', { allowModules: ['vitest'] }],
       'n/no-deprecated-api': 'off',
       'n/no-unpublished-import': 'off',
       'n/no-unpublished-require': 'off',
@@ -51,7 +45,7 @@ export default tseslint.config(
       '@typescript-eslint/ban-ts-comment': 'off', // TODO: we should turn this on in a new PR
       '@typescript-eslint/explicit-module-boundary-types': [
         'error',
-        { allowArgumentsExplicitlyTypedAsAny: true },
+        { allowArgumentsExplicitlyTypedAsAny: false },
       ],
       '@typescript-eslint/no-empty-function': [
         'error',
@@ -67,10 +61,10 @@ export default tseslint.config(
         { prefer: 'type-imports' },
       ],
 
-      'import/no-nodejs-modules': [
-        'error',
-        { allow: builtinModules.map((mod) => `node:${mod}`) },
-      ],
+      // 'import/no-nodejs-modules': [
+      //   'error',
+      //   { allow: builtinModules.map((mod) => `node:${mod}`) },
+      // ],
       'import/no-duplicates': 'error',
       'import/order': 'error',
       'sort-imports': [
