@@ -5,10 +5,9 @@
 *.local
 *.log
 /.vscode/
-dist
 node_modules
 temp
 .eslintcache
-*/**/es
-*/**/lib
-*/**/dist
+es
+lib
+dist

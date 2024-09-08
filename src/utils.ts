@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-05 16:09:04
- * @LastEditTime: 2024-09-06 18:20:43
+ * @LastEditTime: 2024-09-08 20:09:17
  */
 import * as ElementPlus from 'element-plus'
 import type { ResolverName } from './typing'
@@ -15,13 +15,24 @@ export const formatComponentName = (v: string): string =>
   v.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 
 /**
- * 获取要添加的代码
- * @param format
- * @param path
+ * 获取当前chunk最新code
+ * @param format 打包格式
+ * @param chunkCode 代码内容
+ * @param cssPath 注入的组件样式路径
  * @returns
  */
-export const getAppendCode = (format: 'es' | 'cjs', path: string): string => {
-  return format === 'es' ? `import "${path}";\n` : `require("${path}");\n`
+export const getNewChunckCode = (
+  format: string,
+  chunkCode: string,
+  cssPath: string,
+): string => {
+  const addCode =
+    format === 'es' ? `import "${cssPath}";\n` : `require("${cssPath}");`
+  if (format === 'cjs') {
+    return chunkCode.replace(/"use strict";/, `"use strict";${addCode}`)
+  } else {
+    return `${addCode}${chunkCode}`
+  }
 }
 
 /**

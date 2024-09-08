@@ -1,15 +1,15 @@
 /*
  * @Description:
  * @Date: 2024-09-05 14:51:42
- * @LastEditTime: 2024-09-06 18:26:07
+ * @LastEditTime: 2024-09-08 20:11:44
  */
 
 import type { Plugin } from 'vite'
 import type { VitePluginAutoInjectCssOptions } from './typing'
 import {
   formatComponentName,
-  getAppendCode,
   getImportComponents,
+  getNewChunckCode,
 } from './utils'
 
 export interface VitePluginConfig extends Plugin {
@@ -34,17 +34,18 @@ const autoInjectCssPlugin = (
       resolvers.forEach((resolver) => {
         Object.values(bundle).forEach((chunk: any) => {
           const importComponents = getImportComponents(resolver.name, chunk)
-          if (importComponents.length) {
-            if (options.baseCss === undefined || options.baseCss === true) {
-              const basePath = `element-plus/theme-chalk/base.css`
-              chunk.code = `${getAppendCode(format, basePath)}${chunk.code}`
+          if (!importComponents.length) {
+            return
+          }
+          importComponents.forEach((com: string) => {
+            const path = resolver.inject(formatComponentName(com))
+            if (typeof path === 'string') {
+              chunk.code = getNewChunckCode(format, chunk.code, path)
             }
-            importComponents.forEach((com: string) => {
-              const path = resolver.inject(formatComponentName(com))
-              if (typeof path === 'string') {
-                chunk.code = `${getAppendCode(format, path)}${chunk.code}`
-              }
-            })
+          })
+          if (options.baseCss === void 0 || options.baseCss === true) {
+            const basePath = `element-plus/theme-chalk/base.css`
+            chunk.code = getNewChunckCode(format, chunk.code, basePath)
           }
         })
       })
