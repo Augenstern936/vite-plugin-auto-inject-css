@@ -163,9 +163,7 @@ export default defineConfig(() => {
         mode: 'peerDependencies',
         resolvers: [
           ElementPlusResolver({
-            inject: (name) => {
-              return `element-plus/theme-chalk/${name}.css`
-            },
+            inject: (name) => `element-plus/theme-chalk/${name}.css`,
           }),
         ],
       }),
