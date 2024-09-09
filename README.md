@@ -75,7 +75,7 @@ dist
 ├─ index.html                          # 入口 html
 ```
 
-#### 库模式 🚀
+### 库模式 🚀
 
 ```ts
 import { defineConfig } from 'vite'
@@ -120,11 +120,11 @@ export default defineConfig(() => {
 })
 ```
 
-> 以上打包方式不会在输出文件中产生 `style` 代码，而是在对应的`chunk`中，以 `import` 和 `require` 的方式按需注入在文件顶部.
+> 以上打包方式不会在输出文件中产生 `style` 代码，而是在对应的 `chunk` 中，以 `import` 和 `require` 的方式按需注入在文件顶部.
 > 这对封装第三方组件很有帮助，如：开发一个基于ElementPlus的业务组件库，当我们在打包时，无需在对样式重复打包，因为在宿主环境下已经包含了样式文件.
 > 这样做的目的，不仅减小了打包后的体积，同时也避免了使用者在使用时还要再单独引入style文件.
 
-#### ↓ ↓ ↓ ↓ ↓ ↓
+### ↓ ↓ ↓ ↓ ↓ ↓
 
 ```ts
 import { ElButton } from 'element-plus';
@@ -145,6 +145,31 @@ const { ElButton } = require('element-plus')
 require('element-plus/theme-chalk/base.css');
 require('element-plus/theme-chalk/el-button.css');
 const { ElButton } = require('element-plus');
+```
+
+### 自定义注入样式 🚀
+
+```ts
+import { defineConfig } from 'vite'
+import {
+  ElementPlusResolver,
+  createAutoInjectCssPlugin,
+} from 'vite-plugin-auto-inject-css'
+
+export default defineConfig(() => {
+  return {
+    plugins: [
+      createAutoInjectCssPlugin({
+        mode: 'peerDependencies',
+        resolvers: [
+          ElementPlusResolver({
+            inject: (name) => `element-plus/theme-chalk/${name}.css`,
+          }),
+        ],
+      }),
+    ],
+  }
+})
 ```
 
 ## 🍵 捐赠
