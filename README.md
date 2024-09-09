@@ -147,31 +147,6 @@ require('element-plus/theme-chalk/el-button.css');
 const { ElButton } = require('element-plus');
 ```
 
-### 自定义注入样式 🚀
-
-```ts
-import { defineConfig } from 'vite'
-import {
-  ElementPlusResolver,
-  createAutoInjectCssPlugin,
-} from 'vite-plugin-auto-inject-css'
-
-export default defineConfig(() => {
-  return {
-    plugins: [
-      createAutoInjectCssPlugin({
-        mode: 'peerDependencies',
-        resolvers: [
-          ElementPlusResolver({
-            inject: (name) => `element-plus/theme-chalk/${name}.css`,
-          }),
-        ],
-      }),
-    ],
-  }
-})
-```
-
 ## 🍵 捐赠
 
 如果您正在使用这个项目或者喜欢这个项目，可以通过以下方式支持我：
