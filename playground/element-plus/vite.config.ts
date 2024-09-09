@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-06 11:50:17
- * @LastEditTime: 2024-09-06 18:16:29
+ * @LastEditTime: 2024-09-09 15:07:25
  */
 import Vue from '@vitejs/plugin-vue'
 import { defineConfig, loadEnv } from 'vite'
@@ -18,21 +18,11 @@ export default defineConfig(({ mode }): Record<string, any> => {
       host: true,
       https: !!env.https,
     },
-    build: {
-      outDir: 'dist',
-      minify: 'esbuild',
-      sourcemap: false,
-      rollupOptions: {
-        output: {
-          chunkFileNames: 'js/[name]-[hash].js',
-          entryFileNames: 'js/[name]-[hash].js',
-          assetFileNames: 'assets/[ext]/[name]-[hash].[ext]',
-        },
-      },
-    },
     plugins: [
       Vue(),
-      createAutoInjectCssPlugin({ resolvers: [ElementPlusResolver()] }),
+      createAutoInjectCssPlugin({
+        resolvers: [ElementPlusResolver()],
+      }),
     ],
   }
 })

@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-05 16:09:04
- * @LastEditTime: 2024-09-08 20:09:17
+ * @LastEditTime: 2024-09-09 11:20:20
  */
 import * as ElementPlus from 'element-plus'
 import type { ResolverName } from './typing'
@@ -21,7 +21,7 @@ export const formatComponentName = (v: string): string =>
  * @param cssPath 注入的组件样式路径
  * @returns
  */
-export const getNewChunckCode = (
+export const getNewChunkCode = (
   format: string,
   chunkCode: string,
   cssPath: string,
@@ -49,8 +49,16 @@ export const getImportComponents = (
   const libComponents = Object.keys(ElementPlus).filter((key) =>
     key.includes('El'),
   )
+
   const importComponents = el.filter((name: string) =>
     libComponents.includes(name),
   )
+
+  if (!importComponents.length) {
+    return libComponents.filter((key) => {
+      const formatKey = formatComponentName(key)
+      return chunk.code.includes(key) || chunk.code.includes(formatKey)
+    })
+  }
   return importComponents
 }
