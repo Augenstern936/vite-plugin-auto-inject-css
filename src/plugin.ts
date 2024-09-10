@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-05 14:51:42
- * @LastEditTime: 2024-09-10 11:28:44
+ * @LastEditTime: 2024-09-10 23:10:50
  */
 
 import type { ConfigEnv, Plugin, UserConfig } from 'vite'
@@ -36,20 +36,19 @@ const autoInjectCssPlugin = (
       if (id.includes('node_modules') || !resolvers.length) {
         return code
       }
-      console.log(code, 'code')
       const importComponents = getImportComponents('element-plus', { code })
       if (!importComponents.length) {
         return code
       }
       const { command } = env
-      const { mode = 'dependencies' } = options
+      const mode = options.mode || 'dependencies'
       if (
         command === 'serve' ||
         (command === 'build' && mode === 'dependencies')
       ) {
         resolvers.forEach((resolver) => {
           style[resolver.name] = code.includes(resolver.style)
-          if (!style[resolver.name]) return
+          if (style[resolver.name]) return
           importComponents.forEach((com: string) => {
             const path = resolver.inject(formatComponentName(com))
             if (typeof path === 'string') {
