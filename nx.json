@@ -1,5 +1,25 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "defaultBase": "develop",
-  "nxCloudAccessToken": "MDg1ZmVhMmMtN2Y4Ni00Mzc4LWJlZjgtODc1YmYyZDc0MTZjfHJlYWQtd3JpdGU="
+  "defaultBase": "release",
+  "nxCloudAccessToken": "MDg1ZmVhMmMtN2Y4Ni00Mzc4LWJlZjgtODc1YmYyZDc0MTZjfHJlYWQtd3JpdGU=",
+  "release": {
+    "projectsRelationship": "fixed",
+    "projects": ["vite-plugin-auto-inject-css", "*"],
+    "changelog": {
+      "projectChangelogs": {
+        "renderOptions": {
+          "authors": false,
+          "commitReferences": true,
+          "versionTitleDate": true
+        }
+      },
+      "workspaceChangelog": {
+        "renderOptions": {
+          "authors": false,
+          "commitReferences": true,
+          "versionTitleDate": true
+        }
+      }
+    }
+  }
 }
