@@ -31,10 +31,11 @@
   "files": [
     "dist"
   ],
-  "homepage": "git@github.com:Augenstern936/vite-plugin-auto-inject-css.git",
+  "bugs": "https://github.com/Augenstern936/vite-plugin-auto-inject-css/issues",
+  "homepage": "https://github.com/Augenstern936/vite-plugin-auto-inject-css",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Augenstern936/vite-plugin-auto-inject-css.git"
+    "url": "https://github.com/Augenstern936/vite-plugin-auto-inject-css"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.4.1",
@@ -54,8 +55,7 @@
     "tsup": "^8.2.4",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.4.0",
-    "vite": "^5.4.3",
-    "vitest": "^2.0.5"
+    "vite": "^5.4.3"
   },
   "config": {
     "commitizen": {
