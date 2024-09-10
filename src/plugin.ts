@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-05 14:51:42
- * @LastEditTime: 2024-09-09 11:52:46
+ * @LastEditTime: 2024-09-10 11:28:44
  */
 
 import type { ConfigEnv, Plugin, UserConfig } from 'vite'
@@ -36,6 +36,7 @@ const autoInjectCssPlugin = (
       if (id.includes('node_modules') || !resolvers.length) {
         return code
       }
+      console.log(code, 'code')
       const importComponents = getImportComponents('element-plus', { code })
       if (!importComponents.length) {
         return code
@@ -55,7 +56,10 @@ const autoInjectCssPlugin = (
               code = getNewChunkCode('es', code, path)
             }
           })
-          if (options.baseCss === void 0 || options.baseCss === true) {
+          if (
+            (options.baseCss === void 0 || options.baseCss === true) &&
+            resolver.base
+          ) {
             code = getNewChunkCode('es', code, resolver.base)
           }
         })
@@ -79,7 +83,10 @@ const autoInjectCssPlugin = (
               chunk.code = getNewChunkCode(format, chunk.code, path)
             }
           })
-          if (options.baseCss === void 0 || options.baseCss === true) {
+          if (
+            (options.baseCss === void 0 || options.baseCss === true) &&
+            resolver.base
+          ) {
             chunk.code = getNewChunkCode(format, chunk.code, resolver.base)
           }
         })
