@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-auto-inject-css",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "vite-plugin-auto-inject-css",
   "main": "dist/index.js",
   "module": "dist/index.ts",
@@ -16,7 +16,7 @@
     "push:tags": "git push origin --tags",
     "first:publish": "npx nx release publish --first-release && pnpm push:tags",
     "only:publish": "npx nx release publish && pnpm push:tags",
-    "release": "npx nx release --verbose && pnpm push:tags"
+    "release": "npx nx release --first-release --verbose && pnpm push:tags"
   },
   "keywords": [
     "plugin",
