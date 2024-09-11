@@ -12,11 +12,12 @@
     "format": "prettier --write --cache .",
     "lint": "eslint --cache .",
     "postinstall": "simple-git-hooks",
-    "dry-run": "npx nx release --dry-run --first-release --verbose",
+    "dry-run": "npx nx release --dry-run --verbose",
+    "version:publish": "npx nx release version && pnpm only:publish",
     "push:tags": "git push origin --tags",
     "first:publish": "npx nx release publish --first-release && pnpm push:tags",
     "only:publish": "npx nx release publish && pnpm push:tags",
-    "release": "npx nx release --first-release --verbose && pnpm push:tags"
+    "release": "npx nx release && pnpm push:tags"
   },
   "keywords": [
     "plugin",
