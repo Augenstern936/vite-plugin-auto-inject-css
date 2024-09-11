@@ -1,9 +1,10 @@
 ## 0.0.2 (2024-09-11)
 
-This was a version bump only, there were no code changes.
+### 🚀 Features
+
+- 🚀 优化打包体积 ([71d718b](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/71d718b))
 
 ## 0.0.1 (2024-09-10)
-
 
 ### 🚀 Features
 
