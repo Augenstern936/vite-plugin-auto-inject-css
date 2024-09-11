@@ -24,7 +24,10 @@
     "css",
     "style",
     "inject",
-    "auto"
+    "auto",
+    "vue",
+    "component",
+    "element-plus"
   ],
   "author": "<haidu 1720581634@qq.com>",
   "license": "MIT",
@@ -71,6 +74,5 @@
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm exec lint-staged --concurrent false"
-  },
-  "dependencies": {}
+  }
 }
