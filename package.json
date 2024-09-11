@@ -16,7 +16,7 @@
     "push:tags": "git push origin --tags",
     "first:publish": "npx nx release publish --first-release && pnpm push:tags",
     "only:publish": "npx nx release publish && pnpm push:tags",
-    "release": "npx nx release --first-release && pnpm push:tags"
+    "release": "npx nx release && pnpm push:tags"
   },
   "keywords": [
     "plugin",
