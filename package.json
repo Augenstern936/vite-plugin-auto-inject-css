@@ -11,7 +11,6 @@
     "build": "tsup",
     "format": "prettier --write --cache .",
     "lint": "eslint --cache .",
-    "postinstall": "simple-git-hooks",
     "dry-run": "npx nx release --dry-run --verbose",
     "version:publish": "npx nx release version && pnpm only:publish",
     "push:tags": "git push origin --tags",
@@ -72,8 +71,5 @@
   },
   "lint-staged": {
     "*.{js,ts,json}": "eslint --cache --fix"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "pnpm exec lint-staged --concurrent false"
   }
 }
