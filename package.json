@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-auto-inject-css",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "vite-plugin-auto-inject-css",
   "main": "dist/index.js",
   "module": "dist/index.ts",
