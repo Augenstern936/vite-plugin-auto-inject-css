@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-05 16:09:04
- * @LastEditTime: 2024-09-09 11:20:20
+ * @LastEditTime: 2024-09-13 10:24:51
  */
 import * as ElementPlus from 'element-plus'
 import type { ResolverName } from './typing'
@@ -46,6 +46,9 @@ export const getImportComponents = (
   chunk: Record<string, any>,
 ): string[] => {
   const el = chunk?.importedBindings?.[libName] ?? []
+  if (!chunk.code || !el.length) {
+    return []
+  }
   const libComponents = Object.keys(ElementPlus).filter((key) =>
     key.includes('El'),
   )

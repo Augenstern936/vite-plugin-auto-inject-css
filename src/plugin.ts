@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-05 14:51:42
- * @LastEditTime: 2024-09-11 16:30:50
+ * @LastEditTime: 2024-09-13 10:25:56
  */
 
 import type { ConfigEnv, Plugin, UserConfig } from 'vite'
@@ -47,7 +47,7 @@ const autoInjectCssPlugin = (
         (command === 'build' && mode === 'dependencies')
       ) {
         resolvers.forEach((resolver) => {
-          style[resolver.name] = code.includes(resolver.style)
+          style[resolver.name] = code?.includes(resolver.style)
           if (style[resolver.name]) return
           importComponents.forEach((com: string) => {
             const path = resolver.inject(formatComponentName(com))
@@ -56,8 +56,8 @@ const autoInjectCssPlugin = (
             }
           })
           if (
-            (options.baseCss === void 0 || options.baseCss === true) &&
-            resolver.base
+            resolver.base &&
+            (options.baseCss === void 0 || options.baseCss === true)
           ) {
             code = getNewChunkCode('es', code, resolver.base)
           }
@@ -83,8 +83,8 @@ const autoInjectCssPlugin = (
             }
           })
           if (
-            (options.baseCss === void 0 || options.baseCss === true) &&
-            resolver.base
+            resolver.base &&
+            (options.baseCss === void 0 || options.baseCss === true)
           ) {
             chunk.code = getNewChunkCode(format, chunk.code, resolver.base)
           }
