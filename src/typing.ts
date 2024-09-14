@@ -1,19 +1,21 @@
 /*
  * @Description:
  * @Date: 2024-09-05 14:26:22
- * @LastEditTime: 2024-09-09 12:02:23
+ * @LastEditTime: 2024-09-14 17:40:09
  */
 export type ResolverName = 'element-ui' | 'element-plus' | 'ant-design-vue'
 
+type ResolverInject = (componentName?: string) => string | string[]
+
 export interface ResolverOptions {
-  inject?: (componentName?: string) => string
+  inject?: ResolverInject
 }
 
 export interface Resolver {
   name: ResolverName
-  base: string
+  base: string[]
   style: string
-  inject: (componentName: string) => string
+  inject: ResolverInject
 }
 
 export interface VitePluginAutoInjectCssOptions {

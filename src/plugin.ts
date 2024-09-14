@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-05 14:51:42
- * @LastEditTime: 2024-09-13 10:25:56
+ * @LastEditTime: 2024-09-15 17:02:00
  */
 
 import type { ConfigEnv, Plugin, UserConfig } from 'vite'
@@ -23,6 +23,7 @@ const autoInjectCssPlugin = (
   options: VitePluginAutoInjectCssOptions,
 ): VitePluginConfig => {
   const resolvers = options.resolvers
+  const baseCss = options.baseCss ?? true
   const style: Partial<Record<ResolverName, boolean>> = {}
   let config: UserConfig = {}
   let env: Partial<ConfigEnv> = {}
@@ -54,12 +55,16 @@ const autoInjectCssPlugin = (
             if (typeof path === 'string') {
               code = getNewChunkCode('es', code, path)
             }
+            if (Array.isArray(path) && path.length) {
+              path.forEach((p) => {
+                if (!baseCss || (baseCss && !resolver.base.includes(p))) {
+                  code = getNewChunkCode('es', code, p)
+                }
+              })
+            }
           })
-          if (
-            resolver.base &&
-            (options.baseCss === void 0 || options.baseCss === true)
-          ) {
-            code = getNewChunkCode('es', code, resolver.base)
+          if (baseCss === true && resolver.base) {
+            code = getNewChunkCode('es', code, resolver.base[0])
           }
         })
       }
@@ -81,12 +86,16 @@ const autoInjectCssPlugin = (
             if (typeof path === 'string') {
               chunk.code = getNewChunkCode(format, chunk.code, path)
             }
+            if (Array.isArray(path) && path.length) {
+              path.forEach((p) => {
+                if (!baseCss || (baseCss && !resolver.base.includes(p))) {
+                  chunk.code = getNewChunkCode('es', chunk.code, p)
+                }
+              })
+            }
           })
-          if (
-            resolver.base &&
-            (options.baseCss === void 0 || options.baseCss === true)
-          ) {
-            chunk.code = getNewChunkCode(format, chunk.code, resolver.base)
+          if (baseCss === true && resolver.base) {
+            chunk.code = getNewChunkCode(format, chunk.code, resolver.base[0])
           }
         })
       })

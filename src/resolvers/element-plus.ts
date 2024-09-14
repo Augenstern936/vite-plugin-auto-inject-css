@@ -1,7 +1,7 @@
 /*
  * @Description: element-plus解析器
  * @Date: 2024-09-05 16:09:50
- * @LastEditTime: 2024-09-09 11:43:31
+ * @LastEditTime: 2024-09-14 17:39:54
  */
 
 import type { Resolver, ResolverOptions } from '../typing'
@@ -14,9 +14,12 @@ import type { Resolver, ResolverOptions } from '../typing'
 export const ElementPlusResolver = (options?: ResolverOptions): Resolver => {
   return {
     name: 'element-plus',
-    base: 'element-plus/theme-chalk/base.css',
+    base: [
+      'element-plus/theme-chalk/base.css',
+      'element-plus/theme-chalk/src/el-base.scss',
+    ],
     style: 'element-plus/theme-chalk/index.css',
-    inject: (name: string) => {
+    inject: (name?: string) => {
       if (typeof options?.inject === 'function') {
         return options.inject(name)
       }

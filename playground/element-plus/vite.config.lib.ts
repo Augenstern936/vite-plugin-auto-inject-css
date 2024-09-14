@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-06 11:50:17
- * @LastEditTime: 2024-09-09 11:27:46
+ * @LastEditTime: 2024-09-14 17:27:47
  */
 import Vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
@@ -39,7 +39,19 @@ export default defineConfig((): Record<string, any> => {
       Vue(),
       createAutoInjectCssPlugin({
         mode: 'peerDependencies',
-        resolvers: [ElementPlusResolver()],
+        resolvers: [
+          ElementPlusResolver({
+            inject: (name) => {
+              if (name === 'el-button') {
+                return [
+                  `element-plus/theme-chalk/base.css`,
+                  `element-plus/theme-chalk/${name}.css`,
+                ]
+              }
+              return `element-plus/theme-chalk/${name}.css`
+            },
+          }),
+        ],
       }),
     ],
   }
