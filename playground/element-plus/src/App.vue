@@ -1,7 +1,7 @@
 <!--
  * @Description: 
  * @Date: 2024-09-06 14:32:31
- * @LastEditTime: 2024-09-15 12:17:10
+ * @LastEditTime: 2024-09-15 22:35:45
 -->
 <template>
   <el-button>Default</el-button>
@@ -18,4 +18,5 @@ import { ElButton } from 'element-plus'
 
 <style>
 @import url(./styles/test.css);
+@import url(./card.css);
 </style>

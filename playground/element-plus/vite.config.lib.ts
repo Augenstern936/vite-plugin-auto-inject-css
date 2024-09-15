@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-06 11:50:17
- * @LastEditTime: 2024-09-14 17:27:47
+ * @LastEditTime: 2024-09-15 22:47:34
  */
 import Vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
@@ -26,6 +26,7 @@ export default defineConfig((): Record<string, any> => {
           {
             format: 'es',
             dir: 'es',
+            assetFileNames: 'assets/[name][extname]',
           },
           {
             format: 'cjs',

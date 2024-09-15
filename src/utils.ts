@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-05 16:09:04
- * @LastEditTime: 2024-09-15 20:22:33
+ * @LastEditTime: 2024-09-15 22:59:45
  */
 import * as ElementPlus from 'element-plus'
 import type { Resolver, ResolverName } from './typing'
@@ -83,6 +83,12 @@ export const handleChunks = (options: {
   }
   resolvers.forEach((resolver) => {
     chunks.forEach((chunk: Record<string, any>, index) => {
+      if (chunk.viteMetadata?.importedCss) {
+        const importedCss = Array.from(chunk.viteMetadata.importedCss)
+        importedCss.forEach((filename) => {
+          chunk.code = getNewChunkCode(format, chunk.code, `./${filename}`)
+        })
+      }
       const importComponents = getImportComponents(resolver.name, chunk)
       if (!importComponents.length) {
         return
