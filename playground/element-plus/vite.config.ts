@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-06 11:50:17
- * @LastEditTime: 2024-09-15 12:20:19
+ * @LastEditTime: 2024-09-15 19:50:42
  */
 import Vue from '@vitejs/plugin-vue'
 import { defineConfig, loadEnv } from 'vite'
@@ -21,7 +21,6 @@ export default defineConfig(({ mode }): Record<string, any> => {
     plugins: [
       Vue(),
       createAutoInjectCssPlugin({
-        mode: 'peerDependencies',
         resolvers: [ElementPlusResolver()],
       }),
     ],

@@ -1,10 +1,10 @@
 /*
  * @Description:
  * @Date: 2024-09-05 16:09:04
- * @LastEditTime: 2024-09-13 11:11:52
+ * @LastEditTime: 2024-09-15 20:22:33
  */
 import * as ElementPlus from 'element-plus'
-import type { ResolverName } from './typing'
+import type { Resolver, ResolverName } from './typing'
 
 /**
  * 大驼峰转短横线格式
@@ -64,4 +64,50 @@ export const getImportComponents = (
     })
   }
   return importComponents
+}
+
+/**
+ * 处理解析器
+ * @param options
+ */
+export const handleChunks = (options: {
+  resolvers: Resolver[]
+  format: 'cjs' | 'es'
+  chunks: Record<string, any>[]
+  baseCss: boolean
+  getChunkCode: (code?: string, index?: number) => void
+}): void => {
+  const { resolvers, chunks, format, baseCss } = options
+  if (!resolvers.length || !chunks.length) {
+    return
+  }
+  resolvers.forEach((resolver) => {
+    chunks.forEach((chunk: Record<string, any>, index) => {
+      const importComponents = getImportComponents(resolver.name, chunk)
+      if (!importComponents.length) {
+        return
+      }
+      importComponents.forEach((com: string) => {
+        const path = resolver.inject(formatComponentName(com))
+        if (typeof path === 'string') {
+          chunk.code = getNewChunkCode(format, chunk.code, path)
+          options.getChunkCode(chunk.code, index)
+        }
+        if (Array.isArray(path) && path.length) {
+          path.forEach((p) => {
+            if (!baseCss || (baseCss && !resolver.base.includes(p))) {
+              options.getChunkCode(
+                getNewChunkCode(format, chunk.code, p),
+                index,
+              )
+            }
+          })
+        }
+      })
+      if (baseCss === true && resolver.base[0]) {
+        const code = getNewChunkCode(format, chunk.code, resolver.base[0])
+        options.getChunkCode(code, index)
+      }
+    })
+  })
 }

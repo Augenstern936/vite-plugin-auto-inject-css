@@ -1,16 +1,12 @@
 /*
  * @Description:
  * @Date: 2024-09-05 14:51:42
- * @LastEditTime: 2024-09-15 17:02:00
+ * @LastEditTime: 2024-09-15 20:12:29
  */
 
 import type { ConfigEnv, Plugin, UserConfig } from 'vite'
-import type { ResolverName, VitePluginAutoInjectCssOptions } from './typing'
-import {
-  formatComponentName,
-  getImportComponents,
-  getNewChunkCode,
-} from './utils'
+import type { VitePluginAutoInjectCssOptions } from './typing'
+import { getImportComponents, handleChunks } from './utils'
 
 export interface VitePluginConfig extends Plugin {
   generateBundle: (
@@ -24,7 +20,6 @@ const autoInjectCssPlugin = (
 ): VitePluginConfig => {
   const resolvers = options.resolvers
   const baseCss = options.baseCss ?? true
-  const style: Partial<Record<ResolverName, boolean>> = {}
   let config: UserConfig = {}
   let env: Partial<ConfigEnv> = {}
   return {
@@ -47,57 +42,32 @@ const autoInjectCssPlugin = (
         command === 'serve' ||
         (command === 'build' && mode === 'dependencies')
       ) {
-        resolvers.forEach((resolver) => {
-          style[resolver.name] = code?.includes(resolver.style)
-          if (style[resolver.name]) return
-          importComponents.forEach((com: string) => {
-            const path = resolver.inject(formatComponentName(com))
-            if (typeof path === 'string') {
-              code = getNewChunkCode('es', code, path)
-            }
-            if (Array.isArray(path) && path.length) {
-              path.forEach((p) => {
-                if (!baseCss || (baseCss && !resolver.base.includes(p))) {
-                  code = getNewChunkCode('es', code, p)
-                }
-              })
-            }
-          })
-          if (baseCss === true && resolver.base) {
-            code = getNewChunkCode('es', code, resolver.base[0])
-          }
+        handleChunks({
+          resolvers,
+          format: 'es',
+          baseCss,
+          chunks: [{ code }],
+          getChunkCode: (newCode) => {
+            code = newCode as string
+          },
         })
       }
       return code
     },
     generateBundle(
       { format }: Record<string, any>,
-      bundle: Record<string, string>,
+      bundle: Record<string, { [x: string]: any }>,
     ) {
-      if (options.mode !== 'peerDependencies' || !resolvers.length) return
-      resolvers.forEach((resolver) => {
-        Object.values(bundle).forEach((chunk: any) => {
-          const importComponents = getImportComponents(resolver.name, chunk)
-          if (!importComponents.length) {
-            return
-          }
-          importComponents.forEach((com: string) => {
-            const path = resolver.inject(formatComponentName(com))
-            if (typeof path === 'string') {
-              chunk.code = getNewChunkCode(format, chunk.code, path)
-            }
-            if (Array.isArray(path) && path.length) {
-              path.forEach((p) => {
-                if (!baseCss || (baseCss && !resolver.base.includes(p))) {
-                  chunk.code = getNewChunkCode('es', chunk.code, p)
-                }
-              })
-            }
-          })
-          if (baseCss === true && resolver.base) {
-            chunk.code = getNewChunkCode(format, chunk.code, resolver.base[0])
-          }
-        })
+      if (options.mode !== 'peerDependencies') return
+      const chunks = Object.values(bundle)
+      handleChunks({
+        resolvers,
+        format,
+        baseCss,
+        chunks,
+        getChunkCode: (newCode, index) => {
+          chunks[index as number].code = newCode as string
+        },
       })
     },
   }
