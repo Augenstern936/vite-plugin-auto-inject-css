@@ -1,7 +1,7 @@
 <!--
  * @Description: 
  * @Date: 2024-09-06 14:32:31
- * @LastEditTime: 2024-09-09 16:50:10
+ * @LastEditTime: 2024-09-15 12:17:10
 -->
 <template>
   <el-button>Default</el-button>
@@ -15,3 +15,7 @@
 <script setup lang="ts">
 import { ElButton } from 'element-plus'
 </script>
+
+<style>
+@import url(./styles/test.css);
+</style>
