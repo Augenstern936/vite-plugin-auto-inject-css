@@ -1,0 +1,13 @@
+!**/glob-import/dir/node_modules
+.idea
+.nx
+*.cpuprofile
+*.local
+*.log
+/.vscode/
+node_modules
+temp
+.eslintcache
+es
+lib
+dist
