@@ -35,7 +35,13 @@ $ pnpm add vite-plugin-auto-inject-css -D
 | --------- | --------------------- | ----------------------------------- | ------------ |
 | mode      | 以什么样式的模式注入. | `dependencies` / `peerDependencies` | dependencies |
 | baseCss   | 是否注入基础样式.     | `boolean`                           | true         |
-| resolvers | 要注入的库列表.       | `lib[]`                             | -            |
+| resolvers | 要注入的库列表.       | `ElementPlusResolver[]`             | -            |
+
+### Resolver
+
+| 属性   | 描述            | 类型                                    | 默认值 |
+| ------ | --------------- | --------------------------------------- | ------ |
+| inject | 自定义注入样式. | `(name?: string) => string \| string[]` | -      |
 
 ## 🔨 使用案例
 
@@ -145,6 +151,18 @@ const { ElButton } = require('element-plus')
 require('element-plus/theme-chalk/base.css');
 require('element-plus/theme-chalk/el-button.css');
 const { ElButton } = require('element-plus');
+```
+
+> 如果当前样式不属于UI库自身的，那么会在输出目录下生成样式文件并自动注入在对应的`chunk`中.
+
+### ↓ ↓ ↓ ↓ ↓ ↓
+
+```ts
+import './App.css'
+
+或
+
+require('./App.css')
 ```
 
 ### 自定义注入样式 🚀
