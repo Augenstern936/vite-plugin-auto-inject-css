@@ -35,7 +35,7 @@ $ pnpm add vite-plugin-auto-inject-css -D
 | --------- | --------------------- | ----------------------------------- | ------------ |
 | mode      | 以什么样式的模式注入. | `dependencies` / `peerDependencies` | dependencies |
 | baseCss   | 是否注入基础样式.     | `boolean`                           | true         |
-| resolvers | 要注入的库列表.       | `ElementPlusResolver[]`             | -            |
+| resolvers | 要注入的库列表.       | `ElementPlusResolver[]`             | []           |
 
 ### Resolver
 

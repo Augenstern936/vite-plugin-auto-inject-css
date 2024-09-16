@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-05 14:26:22
- * @LastEditTime: 2024-09-14 17:40:09
+ * @LastEditTime: 2024-09-16 23:14:58
  */
 export type ResolverName = 'element-ui' | 'element-plus' | 'ant-design-vue'
 
@@ -21,5 +21,5 @@ export interface Resolver {
 export interface VitePluginAutoInjectCssOptions {
   mode?: 'dependencies' | 'peerDependencies'
   baseCss?: boolean
-  resolvers: Resolver[]
+  resolvers?: Resolver[]
 }
