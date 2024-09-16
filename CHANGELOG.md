@@ -1,3 +1,9 @@
+## 1.0.0-beta.2 (2024-09-16)
+
+### 🩹 Fixes
+
+- 🐛 打包配置output.preserveModules为true时，样式注入失败 ([c357c72](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/c357c72))
+
 ## 1.0.0-beta.1 (2024-09-15)
 
 ### 🚀 Features
