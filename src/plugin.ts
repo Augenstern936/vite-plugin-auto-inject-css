@@ -1,12 +1,12 @@
 /*
  * @Description:
  * @Date: 2024-09-05 14:51:42
- * @LastEditTime: 2024-09-15 20:12:29
+ * @LastEditTime: 2024-09-17 00:32:29
  */
 
 import type { ConfigEnv, Plugin, UserConfig } from 'vite'
 import type { VitePluginAutoInjectCssOptions } from './typing'
-import { getImportComponents, handleChunks } from './utils'
+import { getImportComponents, handleChunks } from './utils/index'
 
 export interface VitePluginConfig extends Plugin {
   generateBundle: (
@@ -18,7 +18,7 @@ export interface VitePluginConfig extends Plugin {
 const autoInjectCssPlugin = (
   options: VitePluginAutoInjectCssOptions,
 ): VitePluginConfig => {
-  const resolvers = options.resolvers
+  const resolvers = options.resolvers ?? []
   const baseCss = options.baseCss ?? true
   let config: UserConfig = {}
   let env: Partial<ConfigEnv> = {}

@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-06 11:50:17
- * @LastEditTime: 2024-09-15 22:47:34
+ * @LastEditTime: 2024-09-16 23:20:22
  */
 import Vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
@@ -18,7 +18,7 @@ export default defineConfig((): Record<string, any> => {
       cssCodeSplit: true,
       copyPublicDir: true,
       lib: {
-        entry: './src/App.vue',
+        entry: ['./src/App.vue', './src/Order.vue'],
       },
       rollupOptions: {
         external: ['vue', 'element-plus'],
@@ -26,12 +26,14 @@ export default defineConfig((): Record<string, any> => {
           {
             format: 'es',
             dir: 'es',
+            preserveModules: true,
             assetFileNames: 'assets/[name][extname]',
           },
           {
             format: 'cjs',
             dir: 'lib',
             exports: 'named',
+            assetFileNames: 'assets/[name][extname]',
           },
         ],
       },
