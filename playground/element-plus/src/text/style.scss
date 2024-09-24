@@ -1,0 +1,21 @@
+/*
+ * @Description: 
+ * @Author: wangbowen936926
+ * @Date: 2024-09-17 19:12:23
+ * @LastEditTime: 2024-09-17 22:22:30
+ * @FilePath: \vite-plugin-auto-inject-css\playground\element-plus\src\text\style.scss
+ */
+.pro-text {
+  display: flex;
+  align-items: center;
+  .icon {
+    cursor: pointer;
+    margin-left: 5px;
+  }
+  .icon:not(:last-child) {
+    margin-right: 10px;
+  }
+  .el-text.is-truncated {
+    padding-right: 3px;
+  }
+}

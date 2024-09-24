@@ -8,10 +8,15 @@
     "build:lib": "vite build --config vite.config.lib.ts"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "@vitejs/plugin-vue": "^5.1.3",
+    "@vueuse/core": "^11.1.0",
+    "copy-to-clipboard": "^3.3.3",
     "vue": "^3.5.3"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue-jsx": "^4.0.1",
+    "sass": "^1.78.0",
     "vite-plugin-auto-inject-css": "workspace:^"
   }
 }

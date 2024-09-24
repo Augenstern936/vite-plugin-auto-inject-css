@@ -1,10 +1,12 @@
 /*
  * @Description:
  * @Date: 2024-09-06 11:50:17
- * @LastEditTime: 2024-09-16 23:20:22
+ * @LastEditTime: 2024-09-17 22:34:35
  */
+import { resolve } from 'path'
 import Vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
+import VueJsx from '@vitejs/plugin-vue-jsx'
 import {
   ElementPlusResolver,
   createAutoInjectCssPlugin,
@@ -18,7 +20,7 @@ export default defineConfig((): Record<string, any> => {
       cssCodeSplit: true,
       copyPublicDir: true,
       lib: {
-        entry: ['./src/App.vue', './src/Order.vue'],
+        entry: 'src/text/index.ts',
       },
       rollupOptions: {
         external: ['vue', 'element-plus'],
@@ -27,19 +29,21 @@ export default defineConfig((): Record<string, any> => {
             format: 'es',
             dir: 'es',
             preserveModules: true,
-            assetFileNames: 'assets/[name][extname]',
+            preserveModulesRoot: resolve(process.cwd(), 'src'),
+            //assetFileNames: 'assets/[name][extname]',
           },
-          {
-            format: 'cjs',
-            dir: 'lib',
-            exports: 'named',
-            assetFileNames: 'assets/[name][extname]',
-          },
+          // {
+          //   format: 'cjs',
+          //   dir: 'lib',
+          //   exports: 'named',
+          //   assetFileNames: 'assets/[name][extname]',
+          // },
         ],
       },
     },
     plugins: [
       Vue(),
+      VueJsx(),
       createAutoInjectCssPlugin({
         mode: 'peerDependencies',
         resolvers: [

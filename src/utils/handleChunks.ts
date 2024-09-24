@@ -2,7 +2,7 @@
  * @Description:
  * @Author: wangbowen936926
  * @Date: 2024-09-16 21:06:45
- * @LastEditTime: 2024-09-17 00:10:04
+ * @LastEditTime: 2024-09-17 17:54:11
  * @FilePath: \vite-plugin-auto-inject-css\src\utils\handleChunks.ts
  */
 import type { Resolver } from '../typing'
@@ -50,9 +50,10 @@ const handleChunkImportedCss = (
     .replace(/"use strict";/, '')
   const importedCss = Array.from(chunk.viteMetadata.importedCss) as string[]
   if (isEmptyChunk) {
-    const entry = chunks.find(
-      (item) => item.isEntry && item.name === chunk.name,
-    ) as Record<string, any>
+    let entry = chunks.find((item) => item.isEntry && item.name === chunk.name)
+    if (!entry) {
+      entry = chunks.find((item) => item.isEntry) as Record<string, any>
+    }
     const index = entry.imports.findIndex(
       (name: string) => name === chunk.fileName,
     )
