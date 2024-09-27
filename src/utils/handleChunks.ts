@@ -2,7 +2,7 @@
  * @Description:
  * @Author: wangbowen936926
  * @Date: 2024-09-16 21:06:45
- * @LastEditTime: 2024-09-17 17:54:11
+ * @LastEditTime: 2024-09-27 17:52:15
  * @FilePath: \vite-plugin-auto-inject-css\src\utils\handleChunks.ts
  */
 import type { Resolver } from '../typing'
@@ -45,27 +45,52 @@ const handleChunkImportedCss = (
   if (!chunk.viteMetadata?.importedCss?.size) {
     return
   }
+  console.log(chunk, 'chunk')
   const isEmptyChunk = !chunk.code
     .replace('\n', '')
     .replace(/"use strict";/, '')
   const importedCss = Array.from(chunk.viteMetadata.importedCss) as string[]
   if (isEmptyChunk) {
-    let entry = chunks.find((item) => item.isEntry && item.name === chunk.name)
+    // let entry = chunks.find((item) => item.isEntry && item.name === chunk.name)
+    // if (!entry) {
+    //   entry = chunks.find((item) => item.isEntry) as Record<string, any>
+    // }
+    // const importsIndex = entry.imports.findIndex(
+    //   (name: string) => name === chunk.fileName,
+    // )
+    // const tergetFileName = entry.imports[importsIndex ? importsIndex - 1 : importsIndex]
+    // let tergetIndex = chunks.findIndex(
+    //   ({ fileName }) => fileName === tergetFileName,
+    // )
+    // if (tergetIndex === -1) {
+    //   tergetIndex = chunks.findIndex(
+    //     ({ fileName }) => fileName === entry.fileName,
+    //   )
+    // }
+
+    let entry: any = chunks.find(
+      (item) => item.isEntry && item.name === chunk.name,
+    )
+    let tergetIndex = -1
     if (!entry) {
-      entry = chunks.find((item) => item.isEntry) as Record<string, any>
-    }
-    const index = entry.imports.findIndex(
-      (name: string) => name === chunk.fileName,
-    )
-    const tergetFileName = entry.imports[index ? index - 1 : index]
-    let tergetIndex = chunks.findIndex(
-      ({ fileName }) => fileName === tergetFileName,
-    )
-    if (tergetIndex === -1) {
-      tergetIndex = chunks.findIndex(
-        ({ fileName }) => fileName === entry.fileName,
+      tergetIndex = chunks.findIndex((item) =>
+        item.imports.includes(chunk.fileName),
       )
     }
+    if (!entry && tergetIndex === -1) {
+      entry = chunks.find((item) => item.isEntry)
+      const index = entry.imports.findIndex((name) => name === chunk.fileName)
+      const tergetFileName = entry.imports[index ? index - 1 : index]
+      tergetIndex = chunks.findIndex(
+        ({ fileName }) => fileName === tergetFileName,
+      )
+      if (tergetIndex === -1) {
+        tergetIndex = chunks.findIndex(
+          ({ fileName }) => fileName === entry.fileName,
+        )
+      }
+    }
+
     importedCss.forEach((filename) => callback(filename, tergetIndex))
     return
   }
@@ -88,6 +113,7 @@ export default (options: {
     return
   }
   const handleChunks = (resolver?: Resolver) => {
+    console.log(chunks, 'chunks')
     chunks.forEach((chunk: Record<string, any>, index) => {
       handleChunkImportedCss(chunk, chunks, (filename, i) => {
         if (i === void 0 || i === -1) {

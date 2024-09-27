@@ -1,15 +1,15 @@
 import {
+  CloseBold,
   DocumentCopy,
   EditPen,
   Select,
-  CloseBold,
 } from '@element-plus/icons-vue'
-import { ElIcon, ElText, ElTooltip, ElInput } from 'element-plus'
-import { FunctionalComponent, computed, defineComponent, ref, watch } from 'vue'
+import { isObject } from '@vueuse/core'
 import copy from 'copy-to-clipboard'
+import { ElIcon, ElInput, ElText, ElTooltip } from 'element-plus'
+import { FunctionalComponent, computed, defineComponent, ref, watch } from 'vue'
 import './style.scss'
 import { ProTextProps, proTextProps } from './typing'
-import { isObject } from '@vueuse/core'
 
 const ProText = defineComponent<ProTextProps>(
   (props, ctx) => {
@@ -165,7 +165,5 @@ const ProText = defineComponent<ProTextProps>(
 ) as unknown as FunctionalComponent<ProTextProps>
 
 ProText.props = proTextProps
-
-export * from './typing'
 
 export default ProText
