@@ -2,7 +2,7 @@
  * @Description:
  * @Author: wangbowen936926
  * @Date: 2024-09-16 21:06:45
- * @LastEditTime: 2024-09-27 17:52:15
+ * @LastEditTime: 2024-09-27 23:01:53
  * @FilePath: \vite-plugin-auto-inject-css\src\utils\handleChunks.ts
  */
 import type { Resolver } from '../typing'
@@ -45,29 +45,11 @@ const handleChunkImportedCss = (
   if (!chunk.viteMetadata?.importedCss?.size) {
     return
   }
-  console.log(chunk, 'chunk')
   const isEmptyChunk = !chunk.code
     .replace('\n', '')
     .replace(/"use strict";/, '')
   const importedCss = Array.from(chunk.viteMetadata.importedCss) as string[]
   if (isEmptyChunk) {
-    // let entry = chunks.find((item) => item.isEntry && item.name === chunk.name)
-    // if (!entry) {
-    //   entry = chunks.find((item) => item.isEntry) as Record<string, any>
-    // }
-    // const importsIndex = entry.imports.findIndex(
-    //   (name: string) => name === chunk.fileName,
-    // )
-    // const tergetFileName = entry.imports[importsIndex ? importsIndex - 1 : importsIndex]
-    // let tergetIndex = chunks.findIndex(
-    //   ({ fileName }) => fileName === tergetFileName,
-    // )
-    // if (tergetIndex === -1) {
-    //   tergetIndex = chunks.findIndex(
-    //     ({ fileName }) => fileName === entry.fileName,
-    //   )
-    // }
-
     let entry: any = chunks.find(
       (item) => item.isEntry && item.name === chunk.name,
     )
@@ -90,10 +72,16 @@ const handleChunkImportedCss = (
         )
       }
     }
-
     importedCss.forEach((filename) => callback(filename, tergetIndex))
     return
   }
+  const name = chunk.fileName
+  if (name.includes('css') || name.includes('scss') || name.includes('less')) {
+    const index = chunks.findIndex((item) => item.imports.includes(name))
+    importedCss.forEach((filename) => callback(filename, index))
+    return
+  }
+
   importedCss.forEach((filename) => callback(filename))
 }
 
@@ -113,7 +101,6 @@ export default (options: {
     return
   }
   const handleChunks = (resolver?: Resolver) => {
-    console.log(chunks, 'chunks')
     chunks.forEach((chunk: Record<string, any>, index) => {
       handleChunkImportedCss(chunk, chunks, (filename, i) => {
         if (i === void 0 || i === -1) {
