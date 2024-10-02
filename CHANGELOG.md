@@ -1,3 +1,9 @@
+## 1.0.0-beta.3 (2024-09-27)
+
+### 🩹 Fixes
+
+- 🐛 复UI库之外的style注入失败 ([cac6b6c](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/cac6b6c))
+
 ## 1.0.0-beta.2 (2024-09-16)
 
 ### 🩹 Fixes

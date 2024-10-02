@@ -1,11 +1,11 @@
 /*
  * @Description:
  * @Date: 2024-09-06 11:50:17
- * @LastEditTime: 2024-09-27 17:59:14
+ * @LastEditTime: 2024-10-02 14:31:26
  */
+import { resolve } from 'path'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
-import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import {
   ElementPlusResolver,
@@ -33,8 +33,8 @@ export default defineConfig({
         {
           format: 'es',
           dir: 'es',
-          preserveModules: true,
-          preserveModulesRoot: resolve(process.cwd(), 'src/text'),
+          // preserveModules: true,
+          // preserveModulesRoot: resolve(process.cwd(), 'src/text'),
           entryFileNames: `[name].mjs`,
           //assetFileNames: 'assets/[name][extname]',
         },

@@ -2,12 +2,30 @@
  * @Description:
  * @Author: wangbowen936926
  * @Date: 2024-09-16 21:06:45
- * @LastEditTime: 2024-09-27 23:01:53
+ * @LastEditTime: 2024-10-02 13:57:13
  * @FilePath: \vite-plugin-auto-inject-css\src\utils\handleChunks.ts
  */
+import path from 'path'
 import type { Resolver } from '../typing'
 import { formatComponentName } from './common'
 import getImportComponents from './getImportComponents'
+
+const toRelativePath = (importedCss: string, fileName) => {
+  console.log(fileName, 'fileName')
+  const fileNameSplit = fileName.split('/')
+  if (!fileNameSplit.length || fileNameSplit.length === 1) {
+    return `./${importedCss}`
+  }
+  let relativePath = ''
+  fileNameSplit.forEach((_, i) => {
+    if (i < fileNameSplit.length - 1) {
+      relativePath += '../'
+    } else {
+      relativePath += importedCss
+    }
+  })
+  return relativePath
+}
 
 /**
  * 获取当前chunk最新code
@@ -21,6 +39,7 @@ const getNewChunkCode = (
   chunkCode: string,
   cssPath: string,
 ): string => {
+  console.log(cssPath, 'cssPath')
   const addCode =
     format === 'es' ? `import "${cssPath}";\n` : `require("${cssPath}");`
   if (format === 'cjs') {
@@ -81,7 +100,6 @@ const handleChunkImportedCss = (
     importedCss.forEach((filename) => callback(filename, index))
     return
   }
-
   importedCss.forEach((filename) => callback(filename))
 }
 
@@ -102,28 +120,45 @@ export default (options: {
   }
   const handleChunks = (resolver?: Resolver) => {
     chunks.forEach((chunk: Record<string, any>, index) => {
-      handleChunkImportedCss(chunk, chunks, (filename, i) => {
+      handleChunkImportedCss(chunk, chunks, (imported, i) => {
         if (i === void 0 || i === -1) {
-          chunk.code = getNewChunkCode(format, chunk.code, `./${filename}`)
+          chunk.code = getNewChunkCode(
+            format,
+            chunk.code,
+            toRelativePath(imported, chunk.fileName),
+          )
           return
         }
+        const targetFile1 = path.relative(
+          path.dirname(chunks[i]['facadeModuleId']),
+          chunk.facadeModuleId,
+        )
+        const targetFile2 = path.relative(
+          chunk.facadeModuleId,
+          chunks[i]['facadeModuleId'],
+        )
+        console.log(targetFile1, 'pathname1')
+        console.log(targetFile2, 'pathnam2')
+        console.log(chunk, 'chunk')
+        console.log(chunks[i], 'chunks[i]')
+        console.log(imported, 'imported-22')
         chunks[i]['code'] = getNewChunkCode(
           format,
           chunks[i]['code'],
-          `./${filename}`,
+          toRelativePath(imported, chunks[i]['fileName']),
         )
       })
       if (!resolver) return
       const importComponents = getImportComponents(resolver.name, chunk)
       if (!importComponents.length) return
       importComponents.forEach((com: string) => {
-        const path = resolver.inject(formatComponentName(com))
-        if (typeof path === 'string') {
-          chunk.code = getNewChunkCode(format, chunk.code, path)
+        const injectPath = resolver.inject(formatComponentName(com))
+        if (typeof injectPath === 'string') {
+          chunk.code = getNewChunkCode(format, chunk.code, injectPath)
           options.getChunkCode(chunk.code, index)
         }
-        if (Array.isArray(path) && path.length) {
-          path.forEach((p) => {
+        if (Array.isArray(injectPath) && injectPath.length) {
+          injectPath.forEach((p) => {
             if (!baseCss || (baseCss && !resolver.base.includes(p))) {
               options.getChunkCode(
                 getNewChunkCode(format, chunk.code, p),
