@@ -14,7 +14,7 @@
     "dry-run": "npx nx release --dry-run --verbose",
     "version:publish": "npx nx release version && pnpm only:publish",
     "first:publish": "npx nx release publish --first-release",
-    "only:publish": "npx nx release publish",
+    "only:publish": "npx nx release publish --tag",
     "release": "npx nx release"
   },
   "keywords": [

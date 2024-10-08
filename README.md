@@ -1,10 +1,14 @@
 <h1 align="center">vite-plugin-auto-inject-css</h1>
 
-<p align="center">按需注入UI库对应的组件样式，无需手动引入 💪</p>
+<p align="center">自动注入对应的 <b>Style</b> 文件及 <b>UI</b> 库组件样式，无需关心样式引入问题</p>
+<p align="center">助力于组件库开发. 💪</p>
 
 ## 为什么要开发这款插件！！
 
-> 当前社区现有的插件无法满足日常开发需求，一些插件发布时间久远，一直未在更新及维护，使用效果不是太好.
+> <p>经常有这样一个场景，每次在使用一个 <b>UI</b> 库时，都要全量引入 <b>Style</b> 文件，或按需手动引入对应的组件 <b>Style</b>.</p>
+> <p>全量引入可能会存在一些未使到的样式，增加了打包后的体积；按需手动引入又太过于麻烦，容易出.</p>
+> <p>本质上 <b>Component</b> 和 <b>Style</b> 应同为一体，在使用时无需在额外引入 <b>Style</b> 而不影响正常使用.</p>
+> <p>同时，当前社区现有的插件无法满足日常开发需求，一些插件发布时间久远，一直未更新及维护，使用效果不是太好.</p>
 
 ```ts
 import { ElButton } from 'element-plus';
@@ -77,7 +81,7 @@ export default defineConfig(({ mode }) => {
 dist
 ├─ assets
 │  ├─ index-Ca3M0RQA.js                # js文件
-│  ├─ index-CwY391-e.css               # 按需打包的UI库对应的组件样式
+│  ├─ index-CwY391-e.css               # 按需打包的UI库组件样式
 ├─ index.html                          # 入口 html
 ```
 
@@ -126,9 +130,10 @@ export default defineConfig(() => {
 })
 ```
 
-> 以上打包方式不会在输出文件中产生 `style` 代码，而是在对应的 `chunk` 中，以 `import` 和 `require` 的方式按需注入在文件顶部.
-> 这对封装第三方组件很有帮助，如：开发一个基于ElementPlus的业务组件库，当我们在打包时，无需在对样式重复打包，因为在宿主环境下已经包含了样式文件, 只需引入即可.
-> 这样不仅减小了打包后的体积，同时也避免了在使用时还要再单独引入style文件.
+> <p>以上打包方式不会在输出目录中生成 <b>style</b> 文件，而是在对应的 <b>chunk</b> 中，以 <b>import</b> 和 <b>require</b> 的方式按需注入在文件顶部.</p>
+> <p>这对封装第三方组件很有帮助，如：开发一个基于 <b>ElementPlus</b> 的业务组件库，当我们在打包时，无需在对样式重复打包，因为在宿主环境下已经包含了样式文件, 只需引入即可.</p>
+> <p>这样不仅减小了打包后的体积，同时也避免了在使用时还要再单独引入 <b>style</b> 文件.</p>
+> <p>前提需设置 <b>mode</b> 参数为 <b>peerDependencies</b>，否则正常生成 <b>style</b> 文件.</p>
 
 ### ↓ ↓ ↓ ↓ ↓ ↓
 
@@ -153,7 +158,7 @@ require('element-plus/theme-chalk/el-button.css');
 const { ElButton } = require('element-plus');
 ```
 
-> 如果当前样式不属于UI库自身的，那么会在输出目录下生成样式文件并自动注入在对应的`chunk`中.
+> 如果当前 <b>style</b> 不属于 <b>UI</b> 库自身的，那么会在输出目录下生成 <b>style</b> 文件并自动注入在对应的 <b>chunk</b> 中.
 
 ### ↓ ↓ ↓ ↓ ↓ ↓
 

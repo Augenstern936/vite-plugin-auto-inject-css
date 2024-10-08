@@ -11,7 +11,6 @@ import { formatComponentName } from './common'
 import getImportComponents from './getImportComponents'
 
 const toRelativePath = (importedCss: string, fileName) => {
-  console.log(fileName, 'fileName')
   const fileNameSplit = fileName.split('/')
   if (!fileNameSplit.length || fileNameSplit.length === 1) {
     return `./${importedCss}`
@@ -39,7 +38,6 @@ const getNewChunkCode = (
   chunkCode: string,
   cssPath: string,
 ): string => {
-  console.log(cssPath, 'cssPath')
   const addCode =
     format === 'es' ? `import "${cssPath}";\n` : `require("${cssPath}");`
   if (format === 'cjs') {
@@ -137,11 +135,6 @@ export default (options: {
           chunk.facadeModuleId,
           chunks[i]['facadeModuleId'],
         )
-        console.log(targetFile1, 'pathname1')
-        console.log(targetFile2, 'pathnam2')
-        console.log(chunk, 'chunk')
-        console.log(chunks[i], 'chunks[i]')
-        console.log(imported, 'imported-22')
         chunks[i]['code'] = getNewChunkCode(
           format,
           chunks[i]['code'],

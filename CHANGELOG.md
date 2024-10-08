@@ -1,3 +1,30 @@
+# 1.0.0 (2024-10-03)
+
+
+### 🚀 Features
+
+- 🚀 扩展inject方法支持多个样式注入 ([6f328da](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/6f328da))
+- 🚀 增加自动注入UI库之外的样式文件 ([ffca073](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/ffca073))
+- 🚀 发布1.0.0-beta.1版本 ([cd5de95](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/cd5de95))
+
+### 🩹 Fixes
+
+- 🐛 publish-v0.0.3 ([88865a9](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/88865a9))
+- 🐛 修复插件处理异常，导致用户打包失败 ([9523fde](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/9523fde))
+- 🐛 修复插件处理异常，导致用户打包失败 ([b450af0](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/b450af0))
+- 🐛 publish-v0.0.3 ([15f29ab](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/15f29ab))
+- 🐛 复打包配置output.preserveModules为true时，样式注入失败 ([c357c72](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/c357c72))
+- 🐛 注入库样式之外的文件失败 ([cddc947](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/cddc947))
+- 🐛 修复UI库之外的style ([cac6b6c](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/cac6b6c))
+- 🐛 发布@1.0.0-beta.2 ([4234a77](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/4234a77))
+- 🐛 修复样式注入路径有误 ([49fd30d](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/49fd30d))
+
+## 1.0.0-beta.5 (2024-10-03)
+
+### 🩹 Fixes
+
+- 🐛 修复样式注入路径有误 ([49fd30d](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/49fd30d))
+
 ## 1.0.0-beta.3 (2024-09-27)
 
 ### 🩹 Fixes
