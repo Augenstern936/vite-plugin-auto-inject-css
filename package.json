@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-auto-inject-css",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "自动注入对应的 Style 文件及 UI 库组件样式，无需关心样式引入问题，助力于组件库开发 💪",
   "main": "dist/index.js",
   "module": "dist/index.ts",
