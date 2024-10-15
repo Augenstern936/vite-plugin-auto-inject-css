@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-09-05 14:51:42
- * @LastEditTime: 2024-09-17 00:32:29
+ * @LastEditTime: 2024-10-15 13:48:19
  */
 
 import type { ConfigEnv, Plugin, UserConfig } from 'vite'
@@ -29,7 +29,11 @@ const autoInjectCssPlugin = (
       env = envConfig
     },
     transform(code, id) {
-      if (id.includes('node_modules') || !resolvers.length) {
+      if (
+        id.includes('node_modules') ||
+        id.includes('workspace') ||
+        !resolvers.length
+      ) {
         return code
       }
       const importComponents = getImportComponents('element-plus', { code })
