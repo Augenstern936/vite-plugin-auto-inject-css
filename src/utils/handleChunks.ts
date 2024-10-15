@@ -2,7 +2,7 @@
  * @Description:
  * @Author: wangbowen936926
  * @Date: 2024-09-16 21:06:45
- * @LastEditTime: 2024-10-02 13:57:13
+ * @LastEditTime: 2024-10-15 11:08:41
  * @FilePath: \vite-plugin-auto-inject-css\src\utils\handleChunks.ts
  */
 import path from 'path'
@@ -40,11 +40,14 @@ const getNewChunkCode = (
 ): string => {
   const addCode =
     format === 'es' ? `import "${cssPath}";\n` : `require("${cssPath}");`
-  if (format === 'cjs') {
-    return chunkCode.replace(/"use strict";/, `"use strict";${addCode}`)
-  } else {
+  const isHas = chunkCode.includes(addCode)
+  if (isHas) {
+    return chunkCode
+  }
+  if (format === 'es') {
     return `${addCode}${chunkCode}`
   }
+  return chunkCode.replace(/"use strict";/, `"use strict";${addCode}`)
 }
 
 /**

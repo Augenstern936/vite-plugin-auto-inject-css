@@ -1,16 +1,18 @@
-<<<<<<< HEAD
-# 1.0.0 (2024-10-03)
+## 1.0.1 (2024-10-08)
 
+### 🩹 Fixes
+
+- 🐛 去除console.log ([bfb1b3b](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/bfb1b3b))
+
+# 1.0.0 (2024-10-03)
 
 ### 🚀 Features
 
 - 🚀 扩展inject方法支持多个样式注入 ([6f328da](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/6f328da))
 - 🚀 增加自动注入UI库之外的样式文件 ([ffca073](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/ffca073))
-- 🚀 发布1.0.0-beta.1版本 ([cd5de95](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/cd5de95))
 
 ### 🩹 Fixes
 
-- 🐛 publish-v0.0.3 ([88865a9](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/88865a9))
 - 🐛 修复插件处理异常，导致用户打包失败 ([9523fde](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/9523fde))
 - 🐛 修复插件处理异常，导致用户打包失败 ([b450af0](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/b450af0))
 - 🐛 publish-v0.0.3 ([15f29ab](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/15f29ab))
@@ -32,8 +34,6 @@
 
 - 🐛 复UI库之外的style注入失败 ([cac6b6c](https://github.com/Augenstern936/vite-plugin-auto-inject-css/commit/cac6b6c))
 
-=======
->>>>>>> d174fd1da2e73b1ff57fbf868e40fdbea09335fe
 ## 1.0.0-beta.2 (2024-09-16)
 
 ### 🩹 Fixes
